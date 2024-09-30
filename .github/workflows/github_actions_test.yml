@@ -21,7 +21,7 @@ jobs:
         current_utc_time=$(date -u +"%Y-%m-%d %H:%M:%S %Z")
         sed -i "s/<<<net-place-holder>>>/$current_utc_time/g" dotnetapp/Controllers/HelloController.cs
 
-        echo "The placeholder has been replaced with current UTC time: $current_utc_time"
+        echo "The placeholder has been replaced with current the UTC time: $current_utc_time"
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v4
