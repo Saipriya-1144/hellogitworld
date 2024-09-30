@@ -8,7 +8,7 @@ on:
     - cron: '0 */4 * * *'  # This will run the workflow every 4 hours
 
 jobs:
-  modify-sample-app and build:
+  modify-sample-app:
     runs-on: ubuntu-latest
   
     steps:
