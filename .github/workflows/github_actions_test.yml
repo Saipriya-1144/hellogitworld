@@ -8,7 +8,7 @@ on:
     - cron: '0 */4 * * *'  # This will run the workflow every 4 hours
 
 jobs:
-  modify-sample-app:
+  build:
     runs-on: ubuntu-latest
   
     steps:
@@ -32,17 +32,17 @@ jobs:
       run: dotnet build --configuration Release dotnetapp/DOTNET_8_APP.csproj
 
     - name: dotnet publish
-      run: dotnet publish dotnetapp/DOTNET_8_APP.csproj -c Release -o release.zip
+      run: dotnet publish dotnetapp/DOTNET_8_APP.csproj -c Release -o myapp
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v4
       with:
         name: dotnet-app
-        path: release.zip
+        path: myapp
   
   deploy:
     runs-on: ubuntu-latest
-    needs: modify-sample-app
+    needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -54,9 +54,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dotnet-app
-      
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
       
       - name: Login to Azure
         uses: azure/login@v2
