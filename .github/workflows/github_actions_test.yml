@@ -21,7 +21,7 @@ jobs:
         current_utc_time=$(date -u +"%Y-%m-%d %H:%M:%S %Z")
         sed -i "s/<<<net-place-holder>>>/$current_utc_time/g" dotnetapp/Controllers/HelloController.cs
 
-        echo "The placeholder has been replaced with current the UTC time: $current_utc_time"
+        echo "The placeholder has been replaced with current UTC time: $current_utc_time"
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v4
@@ -32,13 +32,13 @@ jobs:
       run: dotnet build --configuration Release dotnetapp/DOTNET_8_APP.csproj
 
     - name: dotnet publish
-      run: dotnet publish dotnetapp/DOTNET_8_APP.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish dotnetapp/DOTNET_8_APP.csproj -c Release -o release.zip
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v4
       with:
-        name: .net-app
-        path: ${{env.DOTNET_ROOT}}/myapp
+        name: dotnet-app
+        path: release.zip
   
   deploy:
     runs-on: ubuntu-latest
@@ -53,7 +53,10 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
+          name: dotnet-app
+      
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
       
       - name: Login to Azure
         uses: azure/login@v2
