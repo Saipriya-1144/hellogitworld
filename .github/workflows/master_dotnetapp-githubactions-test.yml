@@ -7,7 +7,8 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
+  schedule: 
+    - cron: '0 */4 * * *'  # This will run the workflow every 4 hours
 
 jobs:
   build:
@@ -16,22 +17,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Modify the sample app
+        run: |
+          cp -r ./__tests__/dotnetsampleapp dotnetapp
+          current_utc_time=$(date -u +"%Y-%m-%d %H:%M:%S %Z")
+          sed -i "s/<<<net-place-holder>>>/$current_utc_time/g" dotnetapp/Controllers/HelloController.cs
+
+          echo "The placeholder has been replaced with current UTC time: $current_utc_time"
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release dotnetapp/DOTNET_8_APP.csproj
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish dotnetapp/DOTNET_8_APP.csproj -c Release -o myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: myapp
 
   deploy:
     runs-on: ubuntu-latest
