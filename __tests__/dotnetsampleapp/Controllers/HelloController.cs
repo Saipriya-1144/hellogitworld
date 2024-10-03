@@ -18,7 +18,7 @@ namespace DOTNET_8_APP.Controllers
         public string Hello()
         {
             Console.WriteLine("Hello endpoint called!");
-            return "Hello heyyyyy Hii from .NET 8 App";
+            return "Hello hey Hii from .NET 8 App";
         }
 
         [HttpGet]
