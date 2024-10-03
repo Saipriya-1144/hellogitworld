@@ -68,7 +68,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'dotnetapp-githubactions-test'
+          app-name: 'lwasv2-euap-dotnet-githubactionstest'
           slot-name: 'Production'
           package: .
           
