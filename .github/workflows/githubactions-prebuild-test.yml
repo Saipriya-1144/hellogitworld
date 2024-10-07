@@ -17,7 +17,6 @@ jobs:
 
       - name: modify and build the dotnet App
         run: |
-          cp -r __tests__/dotnetsampleapp dotnetapp
           chmod +x ./__tests__/modify-and-build.sh
           ./__tests__/modify-and-build.sh
 
