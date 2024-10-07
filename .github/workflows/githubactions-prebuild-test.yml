@@ -19,6 +19,7 @@ jobs:
         run: |
           chmod +x ./__tests__/modify-and-build.sh
           ./__tests__/modify-and-build.sh
+          ls -l
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
@@ -26,7 +27,9 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release dotnetapp/DOTNET_8_APP.csproj
+        run: |
+          ls -l
+          dotnet build --configuration Release dotnetapp/DOTNET_8_APP.csproj
 
       - name: dotnet publish
         run: dotnet publish dotnetapp/DOTNET_8_APP.csproj -c Release -o myapp
