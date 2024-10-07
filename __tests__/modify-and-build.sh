@@ -5,7 +5,6 @@ set -e
 case $1 in
 
  "dotnet")
-    cp -r __tests__/dotnetsampleapp dotnetapp
     cd dotnetapp
 
     current_utc_time=$(date -u +"%Y-%m-%d %H:%M:%S %Z")
@@ -18,7 +17,6 @@ case $1 in
  ;;
 
  "nodejs")
-    cp -r __tests__/nodesampleapp nodeapp
     cd nodeapp
 
     current_utc_time=$(date -u +"%Y-%m-%d %H:%M:%S %Z")

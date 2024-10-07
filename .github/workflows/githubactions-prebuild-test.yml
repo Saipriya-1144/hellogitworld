@@ -17,9 +17,9 @@ jobs:
 
       - name: modify and build the dotnet App
         run: |
+          cp -r __tests__/dotnetsampleapp dotnetapp
           chmod +x ./__tests__/modify-and-build.sh
           ./__tests__/modify-and-build.sh
-          ls -l
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
@@ -66,6 +66,7 @@ jobs:
 
       - name: modify and build the Node.js App
         run: |
+          cp -r __tests__/nodesampleapp nodeapp
           chmod +x ./__tests__/modify-and-build.sh
           ./__tests__/modify-and-build.sh
 
