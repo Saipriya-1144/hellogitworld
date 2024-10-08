@@ -5,7 +5,7 @@ set -e
 case $1 in
 
  "dotnet")
-    cd dotnetapp
+    cp -r ./__tests__/dotnetsampleapp dotnetapp
 
     current_utc_time=$(date -u +"%Y-%m-%d %H:%M:%S %Z")
     sed -i "s/<<<net-place-holder>>>/$current_utc_time/g" Controllers/HelloController.cs
@@ -17,7 +17,7 @@ case $1 in
  ;;
 
  "nodejs")
-    cd nodeapp
+    cp -r ./__tests__/nodesampleapp nodeapp
 
     current_utc_time=$(date -u +"%Y-%m-%d %H:%M:%S %Z")
     sed -i "s/<<<node-place-holder>>>/$current_utc_time/g" server.js
