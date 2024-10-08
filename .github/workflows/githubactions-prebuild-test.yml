@@ -27,7 +27,6 @@ jobs:
 
       - name: Build with dotnet
         run: |
-          cd dotnetapp
           dotnet build --configuration Release dotnetapp/DOTNET_8_APP.csproj
 
       - name: dotnet publish
