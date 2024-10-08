@@ -17,8 +17,8 @@ jobs:
 
       - name: modify and build the dotnet App
         run: |
-          chmod +x ./__tests__/modify-and-build.sh
-          ./__tests__/modify-and-build.sh
+          chmod +x ./__tests__/modify-and-build.sh 
+          ./__tests__/modify-and-build.sh "dotnet"
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
@@ -27,7 +27,7 @@ jobs:
 
       - name: Build with dotnet
         run: |
-          ls -l
+          cd dotnetapp
           dotnet build --configuration Release dotnetapp/DOTNET_8_APP.csproj
 
       - name: dotnet publish
@@ -65,9 +65,8 @@ jobs:
 
       - name: modify and build the Node.js App
         run: |
-          cp -r __tests__/nodesampleapp nodeapp
           chmod +x ./__tests__/modify-and-build.sh
-          ./__tests__/modify-and-build.sh
+          ./__tests__/modify-and-build.sh "nodejs"
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
